@@ -1,6 +1,6 @@
 module.exports= {
     database: {
-        host:'localhost:3306',
+        host:'localhost',
         user: 'root',
         password : '',
         database: 'db_supportbike'
