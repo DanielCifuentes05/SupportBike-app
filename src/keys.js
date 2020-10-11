@@ -1,8 +1,8 @@
 module.exports= {
     database: {
-        host:'localhost',
-        user: 'root',
-        password : '',
-        database: 'db_supportbike'
+        host:'remotemysql.com:3306',
+        user: 'FKpbFQhoWA',
+        password : 'LlbA70mxRD',
+        database: 'FKpbFQhoWA'
     }
 };
