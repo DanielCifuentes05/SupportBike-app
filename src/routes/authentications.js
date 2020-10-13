@@ -32,5 +32,11 @@ router.get('/home' , (req, res) => {
     res.render('Inicio');
 });
 
+router.get('/logout', (req, res) =>{
+    req.logOut();
+    res.redirect('/signin');
+
+});
+
 
 module.exports = router;

@@ -1,20 +1,34 @@
 <div id="app">
     <span id="myid"> </span>
-    <video id="selfview" autoplay></video>
-    <video id="remoteview" autoplay></video>
-    <button id="endCall" style="display: none;" onclick="endCurrentCall()">End Call </button>
-    <div id="list">
-        <ul id="users">
-
-        </ul>
-    </div>
 </div>
+<div class="container p-2" align="center" style=" width: auto; height:550;">
+    <video id="selfview" autoplay muted></video>
+    <video id="remoteview" autoplay></video>
+</div>
+<div>
+    <button id="endCall" style="display: none;" onclick="endCurrentCall()">End Call </button>
+    <button id="mute" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"
+        onclick="muteMic()">
+        <i class="fa fa-microphone-alt text-white"></i></button>
+    <button id="closecam" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false"
+        autocomplete="off" onclick="closeCam()">
+        <i class="fa fa-video text-white"></i></button>
+</div>
+
+<div id="list">
+    <ul id="users">
+
+    </ul>
+</div>
+</div>
+
+
 <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
 <script>
     var pusher = new Pusher('d2acbc8e3f3662aad2d0', {
         cluster: 'us2',
         useTLS: true,
-        authEndpoint: 'pusher/auth'
+        authEndpoint: '/videocall/auth'
     });
     var usersOnline, id, users = [],
         sessionDesc,
@@ -44,7 +58,7 @@
         // for remove member from list:
         var index = users.indexOf(member.id);
         users.splice(index, 1);
-        if(member.id==room){
+        if (member.id == room) {
             endCall();
         }
         render();
@@ -52,7 +66,7 @@
 
     function render() {
         var list = '';
-        users.forEach(function(user) {
+        users.forEach(function (user) {
             list += `<li>` + user + ` <input type="button" style="float:right;"  value="Call" onclick="callUser('` + user + `')" id="makeCall" /></li>`
         })
         document.getElementById('users').innerHTML = list;
@@ -63,17 +77,17 @@
     GetRTCSessionDescription();
     GetRTCIceCandidate();
     prepareCaller();
-    function prepareCaller(){
+    function prepareCaller() {
         //Initializing a peer connection
         caller = new window.RTCPeerConnection();
         //Listen for ICE Candidates and send them to remote peers
-        caller.onicecandidate = function(evt) {
+        caller.onicecandidate = function (evt) {
             if (!evt.candidate) return;
             console.log("onicecandidate called");
             onIceCandidate(caller, evt);
         };
         //onaddstream handler to receive remote feed and show in remoteview video element
-        caller.onaddstream = function(evt) {
+        caller.onaddstream = function (evt) {
             console.log("onaddstream called");
             if (window.URL) {
                 document.getElementById("remoteview").srcObject = evt.stream;
@@ -85,8 +99,11 @@
     function getCam() {
         //Get local audio/video feed and show it in selfview video element 
         return navigator.mediaDevices.getUserMedia({
-            video: true,
-            audio: true
+            video: { facingMode: "environment" },
+            audio: {
+                echoCancellation: true,
+                noiseSuppression: true
+            }
         });
     }
 
@@ -114,16 +131,16 @@
         getCam()
             .then(stream => {
                 if (window.URL) {
-					const mediaStream = new MediaStream(stream)
-					document.getElementById("selfview").srcObject = mediaStream
-                    
+                    const mediaStream = new MediaStream(stream)
+                    document.getElementById("selfview").srcObject = mediaStream;
+
                 } else {
                     document.getElementById("selfview").src = stream;
                 }
                 toggleEndCallButton();
                 caller.addStream(stream);
                 localUserMedia = stream;
-                caller.createOffer().then(function(desc) {
+                caller.createOffer().then(function (desc) {
                     caller.setLocalDescription(new RTCSessionDescription(desc));
                     channel.trigger("client-sdp", {
                         "sdp": desc,
@@ -139,7 +156,7 @@
             })
     };
 
-    function endCall(){
+    function endCall() {
         room = undefined;
         caller.close();
         for (let track of localUserMedia.getTracks()) { track.stop() }
@@ -148,11 +165,13 @@
 
     }
 
-    function endCurrentCall(){
-        
+
+
+    function endCurrentCall() {
+
         channel.trigger("client-endcall", {
-                "room": room
-            });
+            "room": room
+        });
 
         endCall();
     }
@@ -167,10 +186,10 @@
         }
     }
 
-    function toggleEndCallButton(){
-        if(document.getElementById("endCall").style.display == 'block'){
+    function toggleEndCallButton() {
+        if (document.getElementById("endCall").style.display == 'block') {
             document.getElementById("endCall").style.display = 'none';
-        }else{
+        } else {
             document.getElementById("endCall").style.display = 'block';
         }
     }
@@ -178,21 +197,21 @@
 
 
     //Listening for the candidate message from a peer sent from onicecandidate handler
-    channel.bind("client-candidate", function(msg) {
-        if(msg.room==room){
+    channel.bind("client-candidate", function (msg) {
+        if (msg.room == room) {
             console.log("candidate received");
             caller.addIceCandidate(new RTCIceCandidate(msg.candidate));
         }
     });
 
     //Listening for Session Description Protocol message with session details from remote peer
-    channel.bind("client-sdp", function(msg) {
-        if(msg.room == id){
-            
+    channel.bind("client-sdp", function (msg) {
+        if (msg.room == id) {
+
             console.log("sdp received");
-            var answer = confirm("You have a call from: "+ msg.from + "Would you like to answer?");
-            if(!answer){
-                return channel.trigger("client-reject", {"room": msg.room, "rejected":id});
+            var answer = confirm("You have a call from: " + msg.from + "Would you like to answer?");
+            if (!answer) {
+                return channel.trigger("client-reject", { "room": msg.room, "rejected": id });
             }
             room = msg.room;
             getCam()
@@ -207,7 +226,7 @@
                     caller.addStream(stream);
                     var sessionDesc = new RTCSessionDescription(msg.sdp);
                     caller.setRemoteDescription(sessionDesc);
-                    caller.createAnswer().then(function(sdp) {
+                    caller.createAnswer().then(function (sdp) {
                         caller.setLocalDescription(new RTCSessionDescription(sdp));
                         channel.trigger("client-answer", {
                             "sdp": sdp,
@@ -220,38 +239,52 @@
                     console.log('an error occured', error);
                 })
         }
-        
+
 
     });
 
     //Listening for answer to offer sent to remote peer
-    channel.bind("client-answer", function(answer) {
-        if(answer.room==room){
+    channel.bind("client-answer", function (answer) {
+        if (answer.room == room) {
             console.log("answer received");
             caller.setRemoteDescription(new RTCSessionDescription(answer.sdp));
         }
-        
+
     });
 
-    channel.bind("client-reject", function(answer) {
-        if(answer.room==room){
+    channel.bind("client-reject", function (answer) {
+        if (answer.room == room) {
             console.log("Call declined");
             alert("call to " + answer.rejected + "was politely declined");
             endCall();
         }
-        
+
     });
 
-     channel.bind("client-endcall", function(answer) {
-        if(answer.room==room){
+    channel.bind("client-endcall", function (answer) {
+        if (answer.room == room) {
             console.log("Call Ended");
             endCall();
-            
+
         }
-        
+
     });
 
-    
+    function muteMic() {
+        localUserMedia.getTracks().forEach((t) => {
+            if (t.kind === 'audio') t.enabled = !t.enabled;
+        });
+
+    }
+
+    function closeCam() {
+        localUserMedia.getTracks().forEach((t) => {
+            if (t.kind === 'video') t.enabled = !t.enabled;
+        });
+    }
+
+
+
 </script>
 <style>
     video {
@@ -267,11 +300,11 @@
         -ms-transition: all 1s ease-in-out;
         transition: all 1s ease-in-out;
     }
-    
+
     #list ul {
         list-style: none;
     }
-    
+
     #list ul li {
         font-family: Georgia, serif, Times;
         font-size: 18px;
@@ -285,13 +318,13 @@
         text-decoration: none;
         color: #bfe1f1;
     }
-    
+
     #list ul li:hover {
-        -moz-transform: rotate(-5deg);
+
         -moz-box-shadow: 10px 10px 20px #000000;
         -webkit-transform: rotate(-5deg);
         -webkit-box-shadow: 10px 10px 20px #000000;
-        transform: rotate(-5deg);
+
         box-shadow: 10px 10px 20px #000000;
     }
 </style>
