@@ -1,20 +1,26 @@
+
 <div id="app">
     <span id="myid"> </span>
 </div>
 <div class="container p-2" align="center" style=" width: auto; height:550;">
     <video id="selfview" autoplay muted></video>
-    <video id="remoteview" autoplay></video>
+    
 </div>
-<div>
-    <button id="endCall" style="display: none;" onclick="endCurrentCall()">End Call </button>
+<div align="center" >
+    <button id="endCall" type="button" class="btn btn-primary" onclick="endCurrentCall()">End Call </button>
+
     <button id="mute" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false" autocomplete="off"
         onclick="muteMic()">
         <i class="fa fa-microphone-alt text-white"></i></button>
     <button id="closecam" type="button" class="btn btn-primary" data-toggle="button" aria-pressed="false"
         autocomplete="off" onclick="closeCam()">
         <i class="fa fa-video text-white"></i></button>
+    
+     
 </div>
-
+<div class="container p-2" align="center" style=" width: auto; height:550;">
+    <video id="remoteview" autoplay></video>
+</div>
 <div id="list">
     <ul id="users">
 
@@ -209,7 +215,7 @@
         if (msg.room == id) {
 
             console.log("sdp received");
-            var answer = confirm("You have a call from: " + msg.from + "Would you like to answer?");
+            var answer = confirm("El tecnico: " + msg.from + "te quiere contactar, quieres aceptar?");
             if (!answer) {
                 return channel.trigger("client-reject", { "room": msg.room, "rejected": id });
             }
@@ -274,9 +280,7 @@
         localUserMedia.getTracks().forEach((t) => {
             if (t.kind === 'audio') t.enabled = !t.enabled;
         });
-
     }
-
     function closeCam() {
         localUserMedia.getTracks().forEach((t) => {
             if (t.kind === 'video') t.enabled = !t.enabled;
