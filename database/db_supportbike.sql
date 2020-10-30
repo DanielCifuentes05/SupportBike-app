@@ -40,8 +40,7 @@ CREATE TABLE IF NOT EXISTS `sessions` (
 -- Volcado de datos para la tabla `sessions`
 --
 
-INSERT INTO `sessions` (`session_id`, `expires`, `data`) VALUES
-('3x59c_rOuaL0SigVMqZ8TioMR-MIn-Lo', 1601953068, '{\"cookie\":{\"originalMaxAge\":null,\"expires\":null,\"httpOnly\":true,\"path\":\"/\"},\"passport\":{\"user\":9},\"flash\":{}}');
+
 
 -- --------------------------------------------------------
 
@@ -62,9 +61,7 @@ CREATE TABLE IF NOT EXISTS `usuario` (
 -- Volcado de datos para la tabla `usuario`
 --
 
-INSERT INTO `usuario` (`id`, `nombre`, `password`, `email`) VALUES
-(1, 'DanielCifuentes', '$2a$10$NjP.OrzySCx7CIz0URQcCu9kATp8I3fJb4cukd28Ys5IqfthEr8ge', 'd.cifuentes@utp.edu.co');
-COMMIT;
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

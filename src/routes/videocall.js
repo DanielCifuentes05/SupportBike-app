@@ -10,9 +10,9 @@ router.get('/videocall' , isLoggedIn, (req, res) => {
 router.post('/videocall/auth', (req, res) => {
 
     const pusher = new Pusher({
-        appId: '1087407',
-        key: 'd2acbc8e3f3662aad2d0',
-        secret: '4167cd3d65345550892e',
+        appId: '1089719',
+        key: 'aa627cb1dc3099475e48',
+        secret: 'a2d65af256706949f73b',
         cluster: 'us2',
         useTLS: true
     });
