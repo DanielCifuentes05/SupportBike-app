@@ -105,7 +105,7 @@
     function getCam() {
         //Get local audio/video feed and show it in selfview video element 
         return navigator.mediaDevices.getUserMedia({
-            video: { facingMode: "environment" },
+            video: true,//{ facingMode: "environment" },
             audio: {
                 echoCancellation: true,
                 noiseSuppression: true
