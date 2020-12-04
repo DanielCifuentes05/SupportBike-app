@@ -52,7 +52,7 @@
 	
     function creaJitsi(myid){
         console.log(myid);
-        document.getElementById("meeting").style.display = "none";
+        //document.getElementById("meeting").style.display = "none";
         const options = {
             parentNode: document.querySelector('#meeting'),
             roomName: 'supportbike' + myid,
@@ -85,9 +85,9 @@
         meetAPI = new JitsiMeetExternalAPI("meet.jit.si", options);
 
         meetAPI.on('participantJoined', function(abc) {
-		console.log( "Alguien se unio" );
-        document.getElementById("meeting").style.display = "block";
-        document.getElementById("alerta").style.display = "none";
+            console.log( "Alguien se unio" );
+            document.getElementById("meeting").style.display = "block";
+            document.getElementById("alerta").style.display = "none";
 	    });
     }
     
