@@ -1,0 +1,29 @@
+<div class="container p-2 " align="center" style="width: auto; height:550;">
+    <div class="row " style="display:inline-block">
+        <div class="card " style="background:#99F3BD;">
+            <div class="card-block">
+                <img src="/Imagenes/Herramienta1.jpg" alt="" width="200px" height="150px" margin=auto, auto
+                    align="right">
+                <h3>1 Mes por $20.000 COP</h3>
+                <button class="btn btn-primary btn-block" style="background :#28DF99;">Comprar</button>
+                <script src="https://www.mercadopago.com.co/integrations/v1/web-payment-checkout.js"
+                        data-preference-id='<%= global.id %>'>
+                        </script>
+                <form action="/recibepago" method="POST">
+                    
+                </form>
+            </div>
+        </div>
+        <div class="card " style="background: #99F3BD;">
+            <div class="card-block ">
+                <img src="/Imagenes/Casco.jpg" alt="" width="200px" margin=auto, auto align="right">
+                <h3>3 meses por $50.000 COP</h3>
+                <p>OFERTA!!! Recibe un mes adicional gratis con esta suscripción</p>
+                <button class="btn btn-primary btn-block" style="background :#28DF99;">Comprar</button>
+                <script src="https://www.mercadopago.com.co/integrations/v1/web-payment-checkout.js"
+                    data-preference-id='<%= global.id %>'>
+                    </script>
+            </div>
+        </div>
+    </div>
+</div>

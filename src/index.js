@@ -53,6 +53,7 @@ app.use((req, res, next) => {
 app.use(require('./routes'));
 app.use(require('./routes/authentications'));
 app.use(require('./routes/videocall'));
+app.use(require('./routes/pagos'));
 
 
 //Public
