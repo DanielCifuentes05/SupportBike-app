@@ -3,62 +3,44 @@ const express = require('express');
 const mercadopago = require('mercadopago');
 const router = express.Router();
 
+const PaymentController = require("../controllers/PaymentController");
+ //importamos el controller
 
-// Agrega credenciales
-mercadopago.configure({
-    access_token: 'TEST-9e7fdb3c-690f-4244-9803-b3b9cb3b2f9d'
-});
+const PaymentService = require("../services/PaymentService"); 
+//importamos el service
+
+const PaymentInstance = new PaymentController(new PaymentService());
+
 
 router.get('/suscripciones', (req, res) => {
-    let preference = {
-        items: [
-            {
-                id: '1234',
-                title: 'Suscripcion 1 mes',
-                description: 'Suscripcion 1 mes',
-                category_id: 'home',
-                quantity: 1,
-                currency_id: 'COP',
-                unit_price: 20
-            }
-        ]
-    };
-
-    mercadopago.preferences.create(preference)
-        .then(function (res) {
-            // Este valor reemplazará el string "<%= global.id %>" en tu HTML
-            global.id = res.body.id;
-        }).catch(function (error) {
-            console.log(error);
-        });
+   
     res.render('pagos/suscripciones');
     
 });
 
-router.post('/recibepago', (req, res) => {
+router.post('/payment/new', (req, res) => 
+    PaymentInstance.getMercadoPagoLink(req, res));
+
+router.post("/webhook", (req, res) => 
+    PaymentInstance.webhook(req, res));
+
+
+router.get('/success', (req, res) => {
+   
+    res.send('Pago Exitoso');
     
-    let preference = {
-        items: [
-            {
-                id: '1234',
-                title: 'Suscripcion 1 mes',
-                description: 'Suscripcion 1 mes',
-                category_id: 'home',
-                quantity: 1,
-                currency_id: 'COP',
-                unit_price: 20
-            }
-        ]
-    };
+});
 
-    mercadopago.preferences.create(preference)
-        .then(function (res) {
-            // Este valor reemplazará el string "<%= global.id %>" en tu HTML
-            global.id = res.body.id;
-        }).catch(function (error) {
-            console.log(error);
-        });
+router.get('/failure', (req, res) => {
+   
+    res.send('Pago Fallido');
+    
+});
 
+router.get('/pending', (req, res) => {
+   
+    res.send('Pago en proceso');
+    
 });
 
 module.exports = router;

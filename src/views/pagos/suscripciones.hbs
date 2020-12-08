@@ -5,12 +5,12 @@
                 <img src="/Imagenes/Herramienta1.jpg" alt="" width="200px" height="150px" margin=auto, auto
                     align="right">
                 <h3>1 Mes por $20.000 COP</h3>
-                <button class="btn btn-primary btn-block" style="background :#28DF99;">Comprar</button>
-                
-                <form action="/recibepago" method="POST">
-                    <script src="https://www.mercadopago.com.co/integrations/v1/web-payment-checkout.js"
-                        data-preference-id='<%= global.id %>'>
-                </script>
+                <form action="/payment/new" method="POST">
+                <input id="name"  type="text" value="Suscripcion 1 mes" hidden>
+                <input id="unit"  type="text" value="1" hidden>
+                <input id="price"  type="text" value="20" hidden>
+                <input id="img"  type="text" value="https://courseit.com.ar/static/logo.png" hidden>
+                    <button class="btn btn-primary btn-block" type="submit" style="background :#28DF99;">Comprar</button>
                 </form>
             </div>
         </div>
@@ -19,10 +19,13 @@
                 <img src="/Imagenes/Casco.jpg" alt="" width="200px" margin=auto, auto align="right">
                 <h3>3 meses por $50.000 COP</h3>
                 <p>OFERTA!!! Recibe un mes adicional gratis con esta suscripción</p>
-                <button class="btn btn-primary btn-block" style="background :#28DF99;">Comprar</button>
-                <script src="https://www.mercadopago.com.co/integrations/v1/web-payment-checkout.js"
-                    data-preference-id='<%= global.id %>'>
-                    </script>
+                <form action="/payment/new" method="POST">
+                <input id="name"  type="text" value="Suscripcion 3 meses" hidden>
+                <input id="unit"  type="text" value="1" hidden>
+                <input id="price"  type="text" value="50" hidden>
+                <input id="img"  type="text" value="https://courseit.com.ar/static/logo.png" hidden>
+                    <button class="btn btn-primary btn-block" type="submit" style="background :#28DF99;">Comprar</button>
+                </form>
             </div>
         </div>
     </div>
