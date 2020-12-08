@@ -21,7 +21,7 @@ router.get('/suscripciones', (req, res) => {
 router.post('/payment/new', (req, res) => 
     PaymentInstance.getMercadoPagoLink(req, res));
 
-router.post("/webhook", (req, res) => 
+router.post('/webhook', (req, res) => 
     PaymentInstance.webhook(req, res));
 
 
