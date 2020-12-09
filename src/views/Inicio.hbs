@@ -1,80 +1,220 @@
 <main class="index">
+    <style>
+        #opciones {
+            width: 1000px;
+            position: relative;
+            display: flex;
+            justify-content: space-between;
+            padding-bottom: 2%;
+        }
+
+        /* Responsive layout - makes a one column layout instead of a two-column layout */
+        @media (max-width: 800px) {
+            #opciones {
+                flex-direction: column;
+            }
+        }
+
+        #opciones .card {
+            position: relative;
+            cursor: pointer;
+            background-color: #F6F7D4;
+            border: #fff;
+        }
+
+        #opciones .card .face {
+            width: 450px;
+            height: 250px;
+            transition: 0.5s;
+            border-radius: 8px;
+        }
+
+        #opciones .card .face.face1 {
+            position: relative;
+            background: #28DF99;
+            display: inline-block;
+            justify-content: center;
+            align-items: center;
+            z-index: 1;
+            border-radius: 8px;
+            transform: translateY(100px);
+        }
+
+        #opciones .card:hover .face.face1 {
+            background: #99F3BD;
+            transform: translateY(0);
+        }
+
+        #opciones .card .face.face1 .content {
+            opacity: 1.02;
+            transition: 0.5s;
+            display: block;
+        }
+
+        #opciones .card:hover .face.face1 .content {
+            opacity: 1;
+        }
+
+        #opciones .card .face.face1 .content img {
+            width: 450px;
+            height: 200px;
+            border-radius: 8px;
+
+        }
+
+        #opciones .card .face.face1 .content h3 {
+            margin: 10px 0 0;
+            padding: 0;
+            color: rgb(0, 0, 0);
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        #opciones .card .face.face2 {
+            position: relative;
+            background: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            box-sizing: border-box;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+            transform: translateY(-150px);
+        }
+
+        #opciones .card:hover .face.face2 {
+            transform: translateY(0);
+        }
+
+        #opciones .card .face.face2 .content p {
+            margin: 0;
+            padding: 10%;
+            font-size: large;
+
+        }
+    </style>
+
     <body>
-        <div class="container p-2 " align="center" style="width: auto; height:550;">
-            <div class="row " style="display:inline-block"> 
-                <div class="card " style= "background:#99F3BD;">
-                    <div class="card-block">
-                        <img src="/Imagenes/Herramienta1.jpg" alt="" width="200px" height="150px" margin = auto, auto align="right">
-                        <h3>Servicios Prestados</h3>
-                        <p>Tenemos una gran variedad de servicios</p>
-                        <button class="btn btn-primary btn-block" style= "background :#28DF99;">Ver mas</button>
+        <div id="opciones" class="container">
+            <div class="card">
+                <div class="face face1">
+                    <div class="content">
+                        <img src="/Imagenes/distancia1.jpg">
+                        <h3>Atencion a distancia </h3>
                     </div>
                 </div>
-                <div class="card " style= "background: #99F3BD;">
-                    <div class="card-block ">
-                        <img src="/Imagenes/Casco.jpg" alt="" width="200px" margin = auto, auto align="right">
-                        <h3>Repuestos y Accesorios</h3>
-                        <p>Tenemos una gran variedad de repuestos y accesorios</p>
-                        <button class="btn btn-primary btn-block"  style= "background :#28DF99;">Ver mas</button>
-                    </div>
-                </div>
-                <div class="card" >
-                    <div class="card-block" style= "background: #99F3BD;">
-                        <img src="/Imagenes/bicicleta.jpg" alt="" width="200px" margin = auto, auto align="right"> 
-                        <h3>Atencion a Distancia</h3>
+                <div class="face face2">
+                    <div class="content">
                         <p>Ofrecemos una atencion a distancia donde usted se podra comunicar con nosostros</p>
                         <form action="/videocall" method="GET">
-                        <button class="btn btn-primary btn-block"  style= "background :#28DF99;">Ver mas</button>
+                            <button class="btn btn-primary btn-block" style="background :#28DF99;">Ver mas</button>
                         </form>
                     </div>
                 </div>
             </div>
+            <div class="card">
+                <div class="face face1">
+                    <div class="content">
+                        <img src="/Imagenes/Casco.jpg">
+                        <h3>Repuestos y Accesorios</h3>
+                    </div>
+                </div>
+                <div class="face face2">
+                    <div class="content">
+                        <p>Tenemos una gran variedad de repuestos y accesorios</p>
+                        <button class="btn btn-primary btn-block" style="background :#28DF99;">Ver mas</button>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="container p-4"  align="center">
-            <div class="row" >
+        <div class="container p-5" align="center">
+            <div class="row">
                 <div class="col-md-4 mx-auto">
+                    <div class="card border-0" style="background: #F6F7D4;">
+                        <h2>Proporciona </h2>
+                    </div>
+                    <div class="card border-0" style=" background: #F6F7D4;">
+                        <a href = "https://jitsi.org/jitsi-meet/" ><img src="/Imagenes/jisti.png"
+                            style="margin-left: auto; margin-right: auto; display:block; max-width: 50%; height:auto; border-radius:50%;"></a>
+                    </div>
+                    <div class="card border-0" style="background: #F6F7D4;">
+                        <h3 >Jitsi.org</h3>
+                    </div>
+                    <div class="card border-0" style="background: #F6F7D4;">
+                        <p>
+                            Videollamadas seguras y flexibles
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container p-4" align="center">
+            <div class="row">
+                <div class="col-md-5 mx-auto">
                     <div class="card border-0" style="background: #F6F7D4;">
                         <h3>Quienes somos?</h3>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4 mx-auto">
-                     <p>
-                        Somos dos emprendedores buscando dar soluciones a los ciclistas que sufren averios en la ruta.
-                    </p>
-                </div>
-            </div>
-        </div>
+                <div class="row align-items-center">
+                    <div class="col-md-5 mx-auto align-items-center" >
 
-        <div class="container p-4">
-            <div class="row">
-                <div class="col-md-4 mx-auto">
-                    <div class="card text-center">
-                        <div class="card-header">
-                            <h3>Contactenos</h3>
+                        <div class="card border-0" style="background: #F6F7D4;">
+                            <p>
+                                Somos estudiantes de Ingenieria en Sistemas de la Universidad Tecnologica de Pereira,
+                                buscamos brindar apoyo a los ciclistas que sufren algun inconveniente en su ruta.
+                            </p>
                         </div>
-                        <div class="card-body">
-                            <div class="form-group">
-                            <input type="text" name="nombre" class="form-control" placeholder="Nombre">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="text" class="form-control" placeholder="Correo Electronico">
-                            </div>
-                            <div class="form-group">
-                                <textarea name="description" rows="2" class="form-control" placeholder="Mensaje"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-success btn-block">
-                                    Enviar
-                                </button>
-                            </div>
-                        </div>                       
+                    </div>
+                    <div class="col-md-2 mx-auto">
+                        <div class="card border-0" style="background: #F6F7D4;">
+                            <h3>Daniel Cifuentes </h3>
+                        </div>
+                        <div class="card border-0" style="background: #F6F7D4;">
+                            <img src="/Imagenes/Daniel1.jpg" style="max-width: 90%; height:auto; border-radius:50%;">
+                        </div>
+                    </div>
+                    <div class="col-md-2 mx-auto">
+                        <div class="card border-0" style="background: #F6F7D4;">
+                            <h3>Jhon Mario Bedoya </h3>
+                        </div>
+                        <div class="card border-0" style="background: #F6F7D4;">
+                            <img src="/Imagenes/JhonM.jpg" style="max-width: 90%; height:auto; border-radius:50%;">
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
+
+            <div class="container p-5" >
+                <div class="row">
+                    <div class="col-md-6 mx-auto">
+                        <div class="card text-center">
+                            <div class="card-header">
+                                <h3>Contactenos</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group">
+                                    <input type="text" name="nombre" class="form-control" placeholder="Nombre">
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" name="text" class="form-control"
+                                        placeholder="Correo Electronico">
+                                </div>
+                                <div class="form-group">
+                                    <textarea name="description" rows="2" class="form-control"
+                                        placeholder="Mensaje"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-success btn-block" style="background: #28DF99;">
+                                        Enviar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </body>
 </main>
