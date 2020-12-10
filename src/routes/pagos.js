@@ -32,10 +32,10 @@ router.post('/payment/new', (req, res) => {
         },
         "transactions": [{
             "amount": {
-                "total": 39.00,
+                "total": 5.85,
                 "currency": "USD"
             },
-            "description": " a book on mean stack "
+            "description": "Suscripcion"
         }]
         };
 
@@ -65,7 +65,7 @@ router.post('/webhook', (req, res) =>
 
 router.get('/success', (req, res) => {
    
-    res.send('Pago Exitoso');
+    res.render('pagos/exito');
     
 });
 

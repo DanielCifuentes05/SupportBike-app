@@ -6,4 +6,9 @@ router.get('/', (req,res) => {
 
 });
 
+router.get('/repuestos', (req,res) => {
+    res.render('repuestos/repuestos');
+
+});
+
 module.exports = router;
